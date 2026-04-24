@@ -11,10 +11,10 @@ const lockStatus = document.getElementById('lock-status');
 const buttons = document.querySelectorAll('.ctrl-btn');
 buttons.forEach(btn => {
     btn.addEventListener('touchstart', (e) => {
-        // TODO: 這裡是否需要攔截預設行為？
+        e.preventDefault();
         lastAction.innerText = `按下按鈕 ${btn.innerText}`;
         btn.style.boxShadow = '0 0 15px var(--accent-color)';
-    });
+    }, { passive: false });
 
     btn.addEventListener('touchend', (e) => {
         btn.style.boxShadow = 'none';
@@ -26,20 +26,20 @@ buttons.forEach(btn => {
 // 若要使用 preventDefault() 攔截捲動，必須正確配置監聽器。
 
 knob.addEventListener('touchstart', (e) => {
+    e.preventDefault();
     lastAction.innerText = '開始操控搖桿';
     knob.style.cursor = 'grabbing';
-});
+}, { passive: false });
 
 // TODO: 任務 1 - 實作 touchmove 攔截
 // 目標：當手指在搖桿上移動時，頁面不應該發生捲動或橡皮筋回彈
 knob.addEventListener('touchmove', (e) => {
-    // 學員實作區
-    // preventDefault()...
+    e.preventDefault();
     
     // 以下為模擬移動效果 (僅供視覺參考)
     const touch = e.touches[0];
     lastAction.innerText = `搖桿移動中 (${Math.round(touch.clientX)}, ${Math.round(touch.clientY)})`;
-}, { passive: true }); // FIXME: 這裡的 passive 設定會導致 preventDefault 失效嗎？
+}, { passive: false });
 
 
 knob.addEventListener('touchend', (e) => {
@@ -52,8 +52,8 @@ knob.addEventListener('touchend', (e) => {
 // 提示：除了 CSS，JS 也可以攔截 contextmenu 事件
 
 window.addEventListener('contextmenu', (e) => {
-    // 學員實作區
-    // lastAction.innerText = '已攔截系統選單';
+    e.preventDefault();
+    lastAction.innerText = '已攔截系統選單';
 });
 
 console.log("Vibe Controller UX Engine Ready.");

@@ -17,7 +17,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* 這裡原本應該有 user-select: none; */
+    user-select: none;
 }
 
 body {
@@ -28,7 +28,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: auto; /* 故意讓它能捲動，讓學員體會「露底」感 */
+    overflow: hidden;
+    overscroll-behavior: none;
 }
 
 .app-container {
@@ -92,7 +93,7 @@ header p {
     transform: translate(-50%, -50%);
     box-shadow: 0 10px 20px rgba(0,0,0,0.4);
     cursor: grab;
-    /* 學員需要在此加入 touch-action: none */
+    touch-action: none;
 }
 
 /* 按鈕組 */
@@ -112,7 +113,8 @@ header p {
     font-weight: bold;
     font-size: 1.2rem;
     transition: all 0.2s;
-    /* 這裡原本應該有 -webkit-touch-callout: none; */
+    touch-action: manipulation;
+    -webkit-touch-callout: none;
 }
 
 .ctrl-btn:active {
