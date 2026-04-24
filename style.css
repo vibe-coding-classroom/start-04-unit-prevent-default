@@ -1,0 +1,159 @@
+/* 
+   Native-Like UI Styling
+   注意：此檔案故意遺漏了關鍵的 UX 鎖定屬性 (如 touch-action, user-select)，
+   學員需根據 README 任務進行補全。
+*/
+
+:root {
+    --bg-color: #0f172a;
+    --surface-color: #1e293b;
+    --accent-color: #38bdf8;
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --btn-active: #0ea5e9;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* 這裡原本應該有 user-select: none; */
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: auto; /* 故意讓它能捲動，讓學員體會「露底」感 */
+}
+
+.app-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 2rem;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(to right, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+header h1 span {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    -webkit-text-fill-color: var(--text-secondary);
+}
+
+header p {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 2rem;
+}
+
+.controller-surface {
+    background-color: var(--surface-color);
+    padding: 2rem;
+    border-radius: 2rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 搖桿區 */
+.joystick-area {
+    margin-bottom: 2.5rem;
+}
+
+.joystick-base {
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle at center, #334155 0%, #0f172a 100%);
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    position: relative;
+    border: 4px solid #334155;
+}
+
+.knob {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #64748b 0%, #334155 100%);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+    cursor: grab;
+    /* 學員需要在此加入 touch-action: none */
+}
+
+/* 按鈕組 */
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.ctrl-btn {
+    background-color: #334155;
+    border: none;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 1rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: all 0.2s;
+    /* 這裡原本應該有 -webkit-touch-callout: none; */
+}
+
+.ctrl-btn:active {
+    background-color: var(--btn-active);
+    transform: scale(0.95);
+}
+
+/* 狀態面板 */
+.status-panel {
+    background: rgba(15, 23, 42, 0.6);
+    padding: 1rem;
+    border-radius: 1rem;
+    text-align: left;
+}
+
+.status-item {
+    margin-bottom: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.status-item:last-child { margin-bottom: 0; }
+
+.status-item .label {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+.status-item .value {
+    font-family: monospace;
+    font-weight: bold;
+}
+
+.value.inactive { color: #ef4444; }
+.value.active { color: #10b981; }
+
+footer {
+    margin-top: 2rem;
+}
+
+footer p {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}

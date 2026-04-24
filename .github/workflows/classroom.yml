@@ -1,0 +1,73 @@
+name: GitHub Classroom Workflow
+
+on: [push]
+
+permissions:
+  checks: write
+  actions: read
+  contents: read
+
+jobs:
+  build:
+    name: Autograding
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # 1. 驗證 Viewport 設定 (Viewport Lockdown)
+      - name: Check Viewport Lockdown
+        id: test-viewport
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "Task 1.1: Viewport Lockdown Check"
+          setup-command: ""
+          command: "grep -E 'viewport.*user-scalable=no|viewport.*maximum-scale=1.0' index.html"
+          timeout: 10
+          max-score: 20
+
+      # 2. 驗證 CSS 鎖定屬性 (CSS UX Locks)
+      - name: Check CSS UX Locks
+        id: test-css-locks
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "Task 2: CSS UX Locks Check"
+          setup-command: ""
+          # 同時檢查多個關鍵屬性
+          command: "grep 'user-select: none' style.css && grep 'touch-callout: none' style.css && grep 'overscroll-behavior: none' style.css"
+          timeout: 10
+          max-score: 30
+
+      # 3. 驗證 JS 事件攔截邏輯 (JS Event Interception)
+      - name: Check JS Interception Logic
+        id: test-js-interception
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "Task 1.2: JS Event Interception Check"
+          setup-command: ""
+          # 檢查是否正確配置 passive: false 以及使用了 preventDefault
+          command: "grep 'passive: false' js/ux.js && grep 'preventDefault()' js/ux.js"
+          timeout: 10
+          max-score: 30
+
+      # 4. 驗證作業報告填寫 (Report Completion)
+      - name: Check Report Completion
+        id: test-report
+        uses: classroom-resources/autograding-command-grader@v1
+        with:
+          test-name: "Final: Report Completion Check"
+          setup-command: ""
+          # 檢查學生是否將 [ ] 改成 [x] 或填寫了心得
+          command: "grep -E '\\[x\\]|\\[X\\]' README.md"
+          timeout: 10
+          max-score: 20
+
+      # 總結評分
+      - name: Autograding Reporter
+        uses: classroom-resources/autograding-grading-reporter@v1
+        env:
+          TEST-VIEWPORT_RESULTS: "${{steps.test-viewport.outputs.result}}"
+          TEST-CSS-LOCKS_RESULTS: "${{steps.test-css-locks.outputs.result}}"
+          TEST-JS-INTERCEPTION_RESULTS: "${{steps.test-js-interception.outputs.result}}"
+          TEST-REPORT_RESULTS: "${{steps.test-report.outputs.result}}"
+        with:
+          runners: test-viewport,test-css-locks,test-js-interception,test-report

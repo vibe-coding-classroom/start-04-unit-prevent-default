@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <!-- 故意不設定適當的 Viewport，讓學員練習調整 -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"> -->
+    <title>原生感 Web App 挑戰：防止預設行為</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Vibe Controller <span>v4.0</span></h1>
+            <p>挑戰：封印瀏覽器預設行為，打造極致穩定感</p>
+        </header>
+
+        <main class="controller-surface">
+            <!-- 遙控器搖桿區 -->
+            <div class="joystick-area">
+                <div class="joystick-base">
+                    <div id="joystick-knob" class="knob"></div>
+                </div>
+                <div class="label">方向搖桿 (滑動測試區)</div>
+            </div>
+
+            <!-- 按鈕組 -->
+            <div class="button-grid">
+                <button id="btn-a" class="ctrl-btn">A</button>
+                <button id="btn-b" class="ctrl-btn">B</button>
+                <button id="btn-x" class="ctrl-btn">X</button>
+                <button id="btn-y" class="ctrl-btn">Y</button>
+            </div>
+
+            <!-- 資訊顯示區 -->
+            <div class="status-panel">
+                <div class="status-item">
+                    <span class="label">最後操作：</span>
+                    <span id="last-action" class="value">無</span>
+                </div>
+                <div class="status-item">
+                    <span class="label">防滑鎖定：</span>
+                    <span id="lock-status" class="value inactive">未激活</span>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>提示：嘗試在搖桿區快速滑動，或長按按鈕觸發系統選單</p>
+        </footer>
+    </div>
+
+    <script src="js/ux.js"></script>
+</body>
+</html>
