@@ -1,5 +1,3 @@
-Viewed start-04-unit-prevent-default.html:1-494
-
 針對 **`start-04-unit-prevent-default` (防止瀏覽器預設行為：打造原生 App 體驗)** 單元，這是學員將網頁轉化為「專用設備」的技術轉捩點。它要求學員具備 **使用者經驗優化 (UX Optimization)** 與 **瀏覽器行為掌控 (Browser Constraint Mastery)** 的意識，學習如何透過 `event.preventDefault()` 消除移動端的捲動、縮放與右鍵選單，並利用 CSS 鎖定技術讓 Web App 的穩定性達到原生 App 的等級。
 
 以下是在 **GitHub Classroom** 部署其作業 (Assignments) 的具體建議：
